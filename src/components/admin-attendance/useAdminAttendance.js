@@ -30,7 +30,7 @@ const useAdminAttendance = () => {
   useEffect(() => {
     const fetchStaff = async () => {
       try {
-        const res = await fetch("backend_path/api/admin/staff");
+        const res = await fetch("VITE_BACKEND_PATH/api/admin/staff");
         const data = await res.json();
         setStaffList(data);
         const initial = {};
@@ -76,7 +76,7 @@ const useAdminAttendance = () => {
       });
 
     try {
-      const response = await fetch("backend_path/api/admin/attendance", {
+      const response = await fetch("VITE_BACKEND_PATH/api/admin/attendance", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ date, records }),
@@ -94,7 +94,7 @@ const useAdminAttendance = () => {
   const fetchSummary = async () => {
     try {
       const res = await fetch(
-        `backend_path/api/admin/attendance/summary?month=${viewMonth}`
+        `VITE_BACKEND_PATH/api/admin/attendance/summary?month=${viewMonth}`
       );
       const data = await res.json();
       setSummaryData(data);

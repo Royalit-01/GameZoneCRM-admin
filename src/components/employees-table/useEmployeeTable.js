@@ -6,7 +6,7 @@ const useEmployeeTable = () => {
   const [editingEmployee, setEditingEmployee] = useState(null);
   const [loading, setLoading] = useState(true);
   const soundRef = useRef(null);
-  const backendUrl = "backend_path/api/admin";
+  const backendUrl = "VITE_BACKEND_PATH/api/admin";
 
   const playSound = () => {
     if (soundRef.current) {

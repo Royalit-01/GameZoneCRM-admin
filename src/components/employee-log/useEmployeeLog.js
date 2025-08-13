@@ -23,9 +23,12 @@ const useEmployeeLog = () => {
         params.end = endDate.toISOString();
       }
 
-      const response = await axios.get("backend_path/api/admin/activity/logs", {
-        params,
-      });
+      const response = await axios.get(
+        "VITE_BACKEND_PATH/api/admin/activity/logs",
+        {
+          params,
+        }
+      );
 
       const cleanedLogs = response.data.map((log) => ({
         id: log._id,

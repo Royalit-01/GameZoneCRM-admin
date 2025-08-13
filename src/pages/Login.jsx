@@ -18,7 +18,7 @@ const Login = ({ onLoginSuccess }) => {
 
     try {
       const response = await axios.post(
-        "backend_path/api/admin/login",
+        "VITE_BACKEND_PATH/api/admin/login",
         { phone, password }
       );
 

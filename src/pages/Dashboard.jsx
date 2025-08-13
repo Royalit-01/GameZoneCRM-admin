@@ -49,13 +49,13 @@ export default function Dashboard() {
         topCustRes,
         topGameRes,
       ] = await Promise.all([
-        fetch("backend_path/api/admin/active"),
-        fetch("backend_path/api/admin/staff"),
-        fetch("backend_path/api/admindashboard/getall-store"),
-        fetch("backend_path/api/admindashboard/getdata-by-week"),
-        fetch("backend_path/api/admindashboard/getdata-by-month"),
-        fetch("backend_path/api/admindashboard/get-top-customers"),
-        fetch("backend_path/api/admindashboard/get-top-games"),
+        fetch("VITE_BACKEND_PATH/api/admin/active"),
+        fetch("VITE_BACKEND_PATH/api/admin/staff"),
+        fetch("VITE_BACKEND_PATH/api/admindashboard/getall-store"),
+        fetch("VITE_BACKEND_PATH/api/admindashboard/getdata-by-week"),
+        fetch("VITE_BACKEND_PATH/api/admindashboard/getdata-by-month"),
+        fetch("VITE_BACKEND_PATH/api/admindashboard/get-top-customers"),
+        fetch("VITE_BACKEND_PATH/api/admindashboard/get-top-games"),
       ]);
 
       const customersData = await custRes.json();

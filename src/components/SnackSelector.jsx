@@ -15,7 +15,7 @@ const SnackSelector = ({ onChange, reset }) => {
   useEffect(() => {
     const fetchItems = async () => {
       try {
-        const res = await axios.get("backend_path/api/admin/snacks-and-drinks");
+        const res = await axios.get("VITE_BACKEND_PATH/api/admin/snacks-and-drinks");
         const fetchedItems = res.data;
 
         const snacks = fetchedItems.filter((item) => item.category === "Snack");

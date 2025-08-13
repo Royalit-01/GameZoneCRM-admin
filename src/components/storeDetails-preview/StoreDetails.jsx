@@ -20,7 +20,7 @@ const StoreDetails = () => {
   const fetchStores = async () => {
     try {
       setLoading(true);
-      const res = await axios.get("backend_path/api/admin/get-all-stores");
+      const res = await axios.get("VITE_BACKEND_PATH/api/admin/get-all-stores");
       setStores(res.data);
     } catch (err) {
       setError("❌ Failed to fetch stores.");
@@ -43,7 +43,7 @@ const StoreDetails = () => {
   const handleDelete = async (number) => {
     if (!window.confirm("Delete this store?")) return;
     try {
-      await axios.delete(`backend_path/api/admin/delete-store/${number}`);
+      await axios.delete(`VITE_BACKEND_PATH/api/admin/delete-store/${number}`);
       setStores((prev) => prev.filter((s) => s.number !== number));
       handleCloseModal();
     } catch (err) {

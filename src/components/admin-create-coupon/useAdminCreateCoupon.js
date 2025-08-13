@@ -31,7 +31,7 @@ const useAdminCreateCoupon = () => {
 
   //get all game stores
   useEffect(() => {
-    fetch("backend_path/api/admindashboard/getall-store")
+    fetch("VITE_BACKEND_PATH/api/admindashboard/getall-store")
       .then((res) => res.json())
       .then((data) => {
         setGameStores(data);
@@ -73,7 +73,7 @@ const useAdminCreateCoupon = () => {
       };
 
       const response = await fetch(
-        "backend_path/api/admin/create-bulk-coupons",
+        "VITE_BACKEND_PATH/api/admin/create-bulk-coupons",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },

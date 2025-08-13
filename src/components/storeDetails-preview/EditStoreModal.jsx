@@ -114,7 +114,7 @@ const handleDeleteScreen = (index) => {
   const handleUpdateSubmit = async () => {
     try {
       const res = await axios.put(
-        `backend_path/api/admin/update-store/${store.number}`,
+        `VITE_BACKEND_PATH/api/admin/update-store/${store.number}`,
         form
       );
       handleUpdateStore(res.data);

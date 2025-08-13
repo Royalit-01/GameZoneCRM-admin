@@ -10,7 +10,7 @@ const useCouponList = (showExpired = false) => {
   const fetchCoupons = async () => {
     setLoading(true);
     try {
-      const res = await fetch("backend_path/api/admin/getAll-coupons");
+      const res = await fetch("VITE_BACKEND_PATH/api/admin/getAll-coupons");
       const data = await res.json();
       if (res.ok) {
         const filtered = data.filter(

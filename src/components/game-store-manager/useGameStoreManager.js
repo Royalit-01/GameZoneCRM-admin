@@ -138,7 +138,7 @@ const useGameStoreManager = () => {
     }
 
     try {
-      const response = await fetch("backend_path/api/admin/save-store", {
+      const response = await fetch("VITE_BACKEND_PATH/api/admin/save-store", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(storeData),

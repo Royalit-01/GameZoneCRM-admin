@@ -75,8 +75,8 @@ const useEmployeeFormModal = (employee, show, onSave, onHide) => {
     setSubmitting(true);
     try {
       const url = employee
-        ? `backend_path/api/admin/staff/${employee._id}`
-        : "backend_path/api/admin/staff/add";
+        ? `VITE_BACKEND_PATH/api/admin/staff/${employee._id}`
+        : "VITE_BACKEND_PATH/api/admin/staff/add";
 
       const method = employee ? "PUT" : "POST";
 
@@ -104,7 +104,7 @@ const useEmployeeFormModal = (employee, show, onSave, onHide) => {
 
   //get all game stores
   useEffect(() => {
-    fetch("backend_path/api/admindashboard/getall-store")
+    fetch("VITE_BACKEND_PATH/api/admindashboard/getall-store")
       .then((res) => res.json())
       .then((data) => {
         setGameStores(data);

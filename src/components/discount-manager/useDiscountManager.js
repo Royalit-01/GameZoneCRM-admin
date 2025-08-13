@@ -31,7 +31,7 @@ const useDiscountManager = () => {
 
   //get all game stores
   useEffect(() => {
-    fetch("backend_path/api/admindashboard/getall-store")
+    fetch("VITE_BACKEND_PATH/api/admindashboard/getall-store")
       .then((res) => res.json())
       .then((data) => {
         setGameStores(data);
@@ -43,7 +43,7 @@ const useDiscountManager = () => {
   }, []);
 
   const fetchDiscounts = () => {
-    fetch("backend_path/api/admin/discounts/")
+    fetch("VITE_BACKEND_PATH/api/admin/discounts/")
       .then((res) => res.json())
       .then((data) => setDiscounts(data))
       .finally(setLoading(false))
@@ -64,7 +64,7 @@ const useDiscountManager = () => {
     }
 
     try {
-      const res = await fetch("backend_path/api/admin/discounts/add", {
+      const res = await fetch("VITE_BACKEND_PATH/api/admin/discounts/add", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(form),
@@ -92,7 +92,7 @@ const useDiscountManager = () => {
 
   const handleDelete = async (id) => {
     try {
-      await fetch(`backend_path/api/admin/discounts/${id}`, {
+      await fetch(`VITE_BACKEND_PATH/api/admin/discounts/${id}`, {
         method: "DELETE",
       });
       setDiscounts(discounts.filter((d) => d._id !== id));

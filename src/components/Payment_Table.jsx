@@ -22,7 +22,7 @@ function Payment_Table() {
 
   useEffect(() => {
     setLoading(true);
-    fetch("backend_path/api/admin")
+    fetch("VITE_BACKEND_PATH/api/admin")
       .then((res) => res.json())
       .then((data) => {
         setLedgers(data);
