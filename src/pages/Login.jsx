@@ -18,7 +18,7 @@ const Login = ({ onLoginSuccess }) => {
 
     try {
       const response = await axios.post(
-        "VITE_BACKEND_PATH/api/admin/login",
+        "https://gamezonecrm.onrender.com/api/admin/login",
         { phone, password }
       );
 

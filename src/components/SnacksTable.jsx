@@ -4,7 +4,7 @@ import { toast, Toaster } from 'react-hot-toast';
 import { BsPencilSquare, BsTrash, BsPlus } from 'react-icons/bs';
 import SnackFormModal from './SnackFormModal';
 
-const API_BASE_URL = 'VITE_BACKEND_PATH/api/admin';
+const API_BASE_URL = 'https://gamezonecrm.onrender.com/api/admin';
 
 export default function SnacksTable() {
   const [snacks, setSnacks] = useState([]);

@@ -114,7 +114,7 @@ const handleDeleteScreen = (index) => {
   const handleUpdateSubmit = async () => {
     try {
       const res = await axios.put(
-        `VITE_BACKEND_PATH/api/admin/update-store/${store.number}`,
+        `https://gamezonecrm.onrender.com/api/admin/update-store/${store.number}`,
         form
       );
       handleUpdateStore(res.data);

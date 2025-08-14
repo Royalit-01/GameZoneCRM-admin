@@ -24,7 +24,7 @@ const useEmployeeLog = () => {
       }
 
       const response = await axios.get(
-        "VITE_BACKEND_PATH/api/admin/activity/logs",
+        "https://gamezonecrm.onrender.com/api/admin/activity/logs",
         {
           params,
         }

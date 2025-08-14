@@ -30,7 +30,9 @@ const useAdminAttendance = () => {
   useEffect(() => {
     const fetchStaff = async () => {
       try {
-        const res = await fetch("VITE_BACKEND_PATH/api/admin/staff");
+        const res = await fetch(
+          "https://gamezonecrm.onrender.com/api/admin/staff"
+        );
         const data = await res.json();
         setStaffList(data);
         const initial = {};
@@ -76,11 +78,14 @@ const useAdminAttendance = () => {
       });
 
     try {
-      const response = await fetch("VITE_BACKEND_PATH/api/admin/attendance", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ date, records }),
-      });
+      const response = await fetch(
+        "https://gamezonecrm.onrender.com/api/admin/attendance",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ date, records }),
+        }
+      );
 
       const result = await response.json();
       if (!response.ok) throw new Error(result.message);
@@ -94,7 +99,7 @@ const useAdminAttendance = () => {
   const fetchSummary = async () => {
     try {
       const res = await fetch(
-        `VITE_BACKEND_PATH/api/admin/attendance/summary?month=${viewMonth}`
+        `https://gamezonecrm.onrender.com/api/admin/attendance/summary?month=${viewMonth}`
       );
       const data = await res.json();
       setSummaryData(data);

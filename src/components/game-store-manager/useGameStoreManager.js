@@ -138,11 +138,14 @@ const useGameStoreManager = () => {
     }
 
     try {
-      const response = await fetch("VITE_BACKEND_PATH/api/admin/save-store", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(storeData),
-      });
+      const response = await fetch(
+        "https://gamezonecrm.onrender.com/api/admin/save-store",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(storeData),
+        }
+      );
 
       let result;
       try {

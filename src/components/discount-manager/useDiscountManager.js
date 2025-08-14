@@ -31,7 +31,7 @@ const useDiscountManager = () => {
 
   //get all game stores
   useEffect(() => {
-    fetch("VITE_BACKEND_PATH/api/admindashboard/getall-store")
+    fetch("https://gamezonecrm.onrender.com/api/admindashboard/getall-store")
       .then((res) => res.json())
       .then((data) => {
         setGameStores(data);
@@ -43,7 +43,7 @@ const useDiscountManager = () => {
   }, []);
 
   const fetchDiscounts = () => {
-    fetch("VITE_BACKEND_PATH/api/admin/discounts/")
+    fetch("https://gamezonecrm.onrender.com/api/admin/discounts/")
       .then((res) => res.json())
       .then((data) => setDiscounts(data))
       .finally(setLoading(false))
@@ -64,11 +64,14 @@ const useDiscountManager = () => {
     }
 
     try {
-      const res = await fetch("VITE_BACKEND_PATH/api/admin/discounts/add", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form),
-      });
+      const res = await fetch(
+        "https://gamezonecrm.onrender.com/api/admin/discounts/add",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(form),
+        }
+      );
 
       if (res.ok) {
         fetchDiscounts();
@@ -92,9 +95,12 @@ const useDiscountManager = () => {
 
   const handleDelete = async (id) => {
     try {
-      await fetch(`VITE_BACKEND_PATH/api/admin/discounts/${id}`, {
-        method: "DELETE",
-      });
+      await fetch(
+        `https://gamezonecrm.onrender.com/api/admin/discounts/${id}`,
+        {
+          method: "DELETE",
+        }
+      );
       setDiscounts(discounts.filter((d) => d._id !== id));
       toastWithSound("Discount rule deleted", "success");
     } catch {

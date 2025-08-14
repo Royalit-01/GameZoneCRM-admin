@@ -22,7 +22,7 @@ function Payment_Table() {
 
   useEffect(() => {
     setLoading(true);
-    fetch("VITE_BACKEND_PATH/api/admin")
+    fetch("https://gamezonecrm.onrender.com/api/admin")
       .then((res) => res.json())
       .then((data) => {
         setLedgers(data);
