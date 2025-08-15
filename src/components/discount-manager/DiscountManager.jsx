@@ -25,7 +25,7 @@ export default function DiscountManager({ onNavigate }) {
 
   return (
     <Container className="mt-4 px-2">
-      {/* Use relative path so it works under subpaths after deployment */}
+      {/* Use absolute path from public directory */}
       <audio ref={soundRef} src="/toast-sound.wav" preload="auto" />
       <ToastContainer
         position="top-right"
@@ -171,42 +171,34 @@ export default function DiscountManager({ onNavigate }) {
               </tr>
             </thead>
             <tbody>
-              {discounts && discounts.length > 0 ? (
-                discounts.map((rule) => (
-                  <tr key={rule._id}>
-                    <td>
-                      {rule.startDate.slice(0, 10)} to {rule.endDate.slice(0, 10)}
-                    </td>
-                    <td>
-                      {rule.startTime} – {rule.endTime}
-                    </td>
-                    <td>
-                      {rule.discountType === "percent" ? "Percentage" : "Flat"}
-                    </td>
-                    <td>
-                      {rule.discountType === "percent"
-                        ? `${rule.discountValue}%`
-                        : `₹${rule.discountValue}`}
-                    </td>
-                    <td>{rule.store}</td>
-                    <td className="text-end">
-                      <Button
-                        size="sm"
-                        variant="outline-danger"
-                        onClick={() => handleDelete(rule._id)}
-                      >
-                        <BsTrash className="me-1" /> Delete
-                      </Button>
-                    </td>
-                  </tr>
-                ))
-              ) : (
-                <tr>
-                  <td colSpan="6" className="text-center py-4 text-muted">
-                    No discount rules found. Create your first discount rule above.
+              {discounts.map((rule) => (
+                <tr key={rule._id}>
+                  <td>
+                    {rule.startDate.slice(0, 10)} to {rule.endDate.slice(0, 10)}
+                  </td>
+                  <td>
+                    {rule.startTime} – {rule.endTime}
+                  </td>
+                  <td>
+                    {rule.discountType === "percent" ? "Percentage" : "Flat"}
+                  </td>
+                  <td>
+                    {rule.discountType === "percent"
+                      ? `${rule.discountValue}%`
+                      : `₹${rule.discountValue}`}
+                  </td>
+                  <td>{rule.store}</td>
+                  <td className="text-end">
+                    <Button
+                      size="sm"
+                      variant="outline-danger"
+                      onClick={() => handleDelete(rule._id)}
+                    >
+                      <BsTrash className="me-1" /> Delete
+                    </Button>
                   </td>
                 </tr>
-              )}
+              ))}
             </tbody>
           </Table>
         </Card.Body>

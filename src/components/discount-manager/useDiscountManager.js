@@ -38,11 +38,10 @@ const useDiscountManager = () => {
         return res.json();
       })
       .then((data) => {
-        setGameStores(Array.isArray(data) ? data : []);
+        setGameStores(data);
       })
       .catch((error) => {
-        console.error("Failed to load game stores:", error);
-        setGameStores([]);
+        console.error("Error fetching game stores:", error);
         toastWithSound("Failed to load game stores", "error");
       });
   }, []);
@@ -53,20 +52,9 @@ const useDiscountManager = () => {
 
   const fetchDiscounts = () => {
     fetch("https://gamezonecrm.onrender.com/api/admin/discounts/")
-      .then((res) => {
-        if (!res.ok) {
-          throw new Error(`HTTP error! status: ${res.status}`);
-        }
-        return res.json();
-      })
-      .then((data) => {
-        setDiscounts(Array.isArray(data) ? data : []);
-      })
-      .catch((error) => {
-        console.error("Failed to load discounts:", error);
-        setDiscounts([]);
-        toastWithSound("Failed to load discounts", "error");
-      })
+      .then((res) => res.json())
+      .then((data) => setDiscounts(data))
+      .catch(() => toastWithSound("Failed to load discounts", "error"))
       .finally(() => setLoading(false));
   };
 
