@@ -1,5 +1,4 @@
 import React, { useEffect, useRef, useState } from "react";
-import { use } from "react";
 import { toast } from "react-toastify";
 
 const useDiscountManager = () => {
@@ -46,8 +45,8 @@ const useDiscountManager = () => {
     fetch("https://gamezonecrm.onrender.com/api/admin/discounts/")
       .then((res) => res.json())
       .then((data) => setDiscounts(data))
-      .finally(setLoading(false))
-      .catch(() => toastWithSound("Failed to load discounts", "error"));
+      .catch(() => toastWithSound("Failed to load discounts", "error"))
+      .finally(() => setLoading(false));
   };
 
   const handleChange = (e) => {

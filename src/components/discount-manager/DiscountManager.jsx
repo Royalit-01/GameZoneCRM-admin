@@ -25,7 +25,8 @@ export default function DiscountManager({ onNavigate }) {
 
   return (
     <Container className="mt-4 px-2">
-      <audio ref={soundRef} src="/toast-sound.wav" preload="auto" />
+      {/* Use relative path so it works under subpaths after deployment */}
+      <audio ref={soundRef} src="toast-sound.wav" preload="auto" />
       <ToastContainer
         position="top-right"
         autoClose={3000}
