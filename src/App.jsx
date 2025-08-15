@@ -8,7 +8,7 @@ import SnacksPage from "./pages/SnacksPage";
 import GameStoreManagerPage from "./components/game-store-manager/GameStoreManager";
 import PaymentPage from "./pages/PaymentPage";
 import EmployeesPage from "./pages/EmployeesPage";
-import DiscountManagerPage from "./components/discount-manager/DiscountManager";
+import DiscountManagerPage from "./pages/DiscountManagerPage";
 import AdminAttendancePage from "./pages/AdminAttendancePage";
 import EmployeeLogPage from "./components/employee-log/EmployeeLog";
 import CreateCouponPage from "./pages/CreateCouponPage";
