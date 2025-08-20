@@ -12,6 +12,7 @@ export default function DiscountManager({ onNavigate }) {
     discounts,
     form,
     loading,
+    error,
     soundRef,
     handleChange,
     handleSubmit,
@@ -22,6 +23,20 @@ export default function DiscountManager({ onNavigate }) {
   if (loading) {
     return <Loader />;
   }
+
+  if (error) {
+    return (
+      <Container className="mt-4 px-2">
+        <div className="alert alert-danger" role="alert">
+          {error}
+        </div>
+      </Container>
+    );
+  }
+
+  // Ensure we have arrays before rendering
+  const safeDiscounts = Array.isArray(discounts) ? discounts : [];
+  const safeGameStores = Array.isArray(gameStores) ? gameStores : [];
 
   return (
     <Container className="mt-4 px-2">
@@ -70,7 +85,7 @@ export default function DiscountManager({ onNavigate }) {
               >
                 <option value="">Select a store...</option>
                 {/* Map through your store options here */}
-                {gameStores.map((store) => (
+                {safeGameStores.map((store) => (
                   <option key={store._id} value={store.number}>
                     {store.name} - {store.number}
                   </option>
@@ -155,7 +170,7 @@ export default function DiscountManager({ onNavigate }) {
         <Card.Header className="bg-dark text-white d-flex justify-content-between align-items-center">
           <span>Active Discounts</span>
           <span className="badge bg-light text-dark">
-            {discounts.length} rule(s)
+            {safeDiscounts.length} rule(s)
           </span>
         </Card.Header>
         <Card.Body className="p-0">
@@ -171,7 +186,7 @@ export default function DiscountManager({ onNavigate }) {
               </tr>
             </thead>
             <tbody>
-              {discounts.map((rule) => (
+              {safeDiscounts.map((rule) => (
                 <tr key={rule._id}>
                   <td>
                     {rule.startDate.slice(0, 10)} to {rule.endDate.slice(0, 10)}

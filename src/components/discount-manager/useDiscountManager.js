@@ -4,6 +4,7 @@ import { toast } from "react-toastify";
 const useDiscountManager = () => {
   const [discounts, setDiscounts] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   const soundRef = useRef(null);
   const [gameStores, setGameStores] = useState([]);
   const [form, setForm] = useState({
@@ -30,32 +31,48 @@ const useDiscountManager = () => {
 
   //get all game stores
   useEffect(() => {
-    fetch("https://gamezonecrm.onrender.com/api/admindashboard/getall-store")
-      .then((res) => {
+    const fetchStores = async () => {
+      try {
+        const res = await fetch("https://gamezonecrm.onrender.com/api/admindashboard/getall-store");
         if (!res.ok) {
           throw new Error(`HTTP error! status: ${res.status}`);
         }
-        return res.json();
-      })
-      .then((data) => {
+        const data = await res.json();
+        if (!Array.isArray(data)) {
+          throw new Error('Expected array of stores but got ' + typeof data);
+        }
         setGameStores(data);
-      })
-      .catch((error) => {
+      } catch (error) {
         console.error("Error fetching game stores:", error);
-        toastWithSound("Failed to load game stores", "error");
-      });
+        setError(error.message);
+        toastWithSound("Failed to load game stores: " + error.message, "error");
+      }
+    };
+    fetchStores();
   }, []);
 
   useEffect(() => {
     fetchDiscounts();
   }, []);
 
-  const fetchDiscounts = () => {
-    fetch("https://gamezonecrm.onrender.com/api/admin/discounts/")
-      .then((res) => res.json())
-      .then((data) => setDiscounts(data))
-      .catch(() => toastWithSound("Failed to load discounts", "error"))
-      .finally(() => setLoading(false));
+  const fetchDiscounts = async () => {
+    try {
+      const res = await fetch("https://gamezonecrm.onrender.com/api/admin/discounts/");
+      if (!res.ok) {
+        throw new Error(`HTTP error! status: ${res.status}`);
+      }
+      const data = await res.json();
+      if (!Array.isArray(data)) {
+        throw new Error('Expected array of discounts but got ' + typeof data);
+      }
+      setDiscounts(data);
+    } catch (error) {
+      console.error("Error fetching discounts:", error);
+      setError(error.message);
+      toastWithSound("Failed to load discounts: " + error.message, "error");
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleChange = (e) => {
@@ -122,6 +139,7 @@ const useDiscountManager = () => {
     setForm,
     loading,
     setLoading,
+    error,
     playSound,
     toastWithSound,
     fetchDiscounts,
@@ -129,6 +147,7 @@ const useDiscountManager = () => {
     handleSubmit,
     handleDelete,
     gameStores,
+    soundRef
   };
 };
 
