@@ -225,12 +225,14 @@ export default function GameStoreManager() {
                                     type="number"
                                     className="form-control form-control-sm"
                                     value={game.pricing?.[dur]?.[p] || ""}
+                                    min="0"
+                                    step="0.01"
                                     onChange={(e) =>
                                       handlePriceChange(
                                         gIdx,
                                         dur,
                                         p,
-                                        parseInt(e.target.value) || 0
+                                        e.target.value === "" ? "" : parseFloat(e.target.value)
                                       )
                                     }
                                   />

@@ -129,13 +129,14 @@ const handleDeleteScreen = (index) => {
     <Modal show={show} onHide={handleClose} size="lg" centered scrollable>
       <Modal.Header closeButton>
         <Modal.Title>
-          {isEditing ? "✏️ Edit Store" : `🏪 ${store.name}`}
+          {isEditing ? "✏️ Edit Store " : `🏪 ${store.name}`}
         </Modal.Title>
       </Modal.Header>
 
       <Modal.Body>
         {isEditing ? (
           <Form>
+
             <Row>
               <Col md={6}>
                 <Form.Group className="mb-3">
