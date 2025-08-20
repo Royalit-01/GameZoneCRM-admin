@@ -57,7 +57,7 @@ const useDiscountManager = () => {
 
   const fetchDiscounts = async () => {
     try {
-      const res = await fetch("https://gamezonecrm.onrender.com/api/admin/discounts/");
+      const res = await fetch("https://gamezonecrm.onrender.com/api/admin/discounts");
       if (!res.ok) {
         throw new Error(`HTTP error! status: ${res.status}`);
       }
