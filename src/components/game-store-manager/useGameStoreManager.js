@@ -59,20 +59,7 @@ const useGameStoreManager = () => {
     const newGames = [...currentScreen.games];
     const game = newGames[gIdx];
     if (!game.pricing[duration]) game.pricing[duration] = {};
-    
-    // If value is empty string, remove the price
-    if (value === "") {
-      delete game.pricing[duration][p];
-      if (Object.keys(game.pricing[duration]).length === 0) {
-        delete game.pricing[duration];
-      }
-    } else {
-      // Only set the price if it's a valid number
-      if (!isNaN(value)) {
-        game.pricing[duration][p] = value;
-      }
-    }
-    
+    game.pricing[duration][p] = value;
     setCurrentScreen({ ...currentScreen, games: newGames });
   };
 

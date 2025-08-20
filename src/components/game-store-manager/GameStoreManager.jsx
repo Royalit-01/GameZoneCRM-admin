@@ -222,19 +222,22 @@ export default function GameStoreManager() {
                               {allowedPlayers.map((p) => (
                                 <td key={p}>
                                   <input
-                                    type="number"
+                                    type="text"
+                                    inputMode="numeric"
+                                    pattern="[0-9]*"
                                     className="form-control form-control-sm"
                                     value={game.pricing?.[dur]?.[p] || ""}
-                                    min="0"
-                                    step="0.01"
-                                    onChange={(e) =>
-                                      handlePriceChange(
-                                        gIdx,
-                                        dur,
-                                        p,
-                                        e.target.value === "" ? "" : parseFloat(e.target.value)
-                                      )
-                                    }
+                                    onChange={(e) => {
+                                      const value = e.target.value;
+                                      if (value === "" || /^\d+$/.test(value)) {
+                                        handlePriceChange(
+                                          gIdx,
+                                          dur,
+                                          p,
+                                          value === "" ? "" : parseInt(value)
+                                        );
+                                      }
+                                    }}
                                   />
                                 </td>
                               ))}
