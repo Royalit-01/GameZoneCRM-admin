@@ -31,7 +31,7 @@ const useAdminCreateCoupon = () => {
 
   //get all game stores
   useEffect(() => {
-    fetch("https://gamezonecrm.onrender.com/api/admindashboard/getall-store")
+    fetch("https://gamezonecrm.onrender.com/api/admin/dashboard/getall-store")
       .then((res) => res.json())
       .then((data) => {
         setGameStores(data);

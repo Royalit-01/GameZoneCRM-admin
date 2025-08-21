@@ -33,7 +33,7 @@ const useDiscountManager = () => {
   useEffect(() => {
     const fetchStores = async () => {
       try {
-        const res = await fetch("https://gamezonecrm.onrender.com/api/admindashboard/getall-store");
+        const res = await fetch("https://gamezonecrm.onrender.com/api/admin/dashboard/getall-store");
         if (!res.ok) {
           throw new Error(`HTTP error! status: ${res.status}`);
         }
