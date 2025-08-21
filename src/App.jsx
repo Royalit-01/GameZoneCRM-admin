@@ -5,7 +5,7 @@ import Dashboard from "./pages/Dashboard";
 import CustomerTablePage from "./components/customer-table/CustomerTable";
 import Settings from "./pages/Settings";
 import SnacksPage from "./pages/SnacksPage";
-import GameStoreManagerPage from "./components/game-store-manager/GameStoreManager";
+import GameStoreManagerPage from "./components/game-store-manager/useGameStoreManager";
 import PaymentPage from "./pages/PaymentPage";
 import EmployeesPage from "./pages/EmployeesPage";
 import DiscountManagerPage from "./pages/DiscountManagerPage";

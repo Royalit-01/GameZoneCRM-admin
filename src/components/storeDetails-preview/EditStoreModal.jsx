@@ -27,14 +27,25 @@ const EditStoreModal = ({
   handleDelete,
   handleUpdateStore,
 }) => {
+  // ✅ Safe initialization of form with guaranteed pricing
   const [form, setForm] = useState({
     ...store,
     isCafeEnabled: store?.isCafeEnabled ?? true,
     name: store.name,
     number: store.number,
     address: store.address,
-    screens: JSON.parse(JSON.stringify(store.screens)),
+    screens: store.screens.map((screen) => ({
+      ...screen,
+      games: screen.games.map((game) => ({
+        ...game,
+        pricing: durations.reduce((acc, dur) => {
+          acc[dur] = game.pricing?.[dur] || {};
+          return acc;
+        }, {}),
+      })),
+    })),
   });
+
   const [openScreens, setOpenScreens] = useState({});
   const [error, setError] = useState("");
 
@@ -43,7 +54,8 @@ const EditStoreModal = ({
   };
 
   const handleInputChange = (e) => {
-    const value = e.target.type === 'checkbox' ? e.target.checked : e.target.value;
+    const value =
+      e.target.type === "checkbox" ? e.target.checked : e.target.value;
     setForm({ ...form, [e.target.name]: value });
   };
 
@@ -53,63 +65,62 @@ const EditStoreModal = ({
     setForm(newForm);
   };
 
+  // ✅ Defensive handlePriceChange
   const handlePriceChange = (screenIdx, gameIdx, duration, players, value) => {
     const newForm = { ...form };
-    if (!newForm.screens[screenIdx].games[gameIdx].pricing[duration]) {
-      newForm.screens[screenIdx].games[gameIdx].pricing[duration] = {};
-    }
-    newForm.screens[screenIdx].games[gameIdx].pricing[duration][players] = Number(value);
+    const game = newForm.screens[screenIdx].games[gameIdx];
+    if (!game.pricing) game.pricing = {};
+    if (!game.pricing[duration]) game.pricing[duration] = {};
+    game.pricing[duration][players] = Number(value);
     setForm(newForm);
   };
 
-const handleAddScreen = () => {
-  const name = prompt("Enter new screen name:")?.trim();
-  if (!name) return;
+  const handleAddScreen = () => {
+    const name = prompt("Enter new screen name:")?.trim();
+    if (!name) return;
 
-  const isDuplicate = form.screens.some(
-    (screen) => screen.screenName.toLowerCase() === name.toLowerCase()
-  );
+    const isDuplicate = form.screens.some(
+      (screen) => screen.screenName.toLowerCase() === name.toLowerCase()
+    );
+    if (isDuplicate) {
+      alert("⚠ A screen with this name already exists.");
+      return;
+    }
 
-  if (isDuplicate) {
-    alert("⚠️ A screen with this name already exists.");
-    return;
-  }
-
-  const newScreen = {
-    screenName: name,
-    games: [
-      {
-        gameName: "",
-        allowedPlayers: 2,
-        pricing: {
-          "0.5": {},
-          "1": {},
-          "1.5": {},
-          "2": {},
+    const newScreen = {
+      screenName: name,
+      games: [
+        {
+          gameName: "",
+          allowedPlayers: 2,
+          pricing: {
+            "0.5": {},
+            "1": {},
+            "1.5": {},
+            "2": {},
+          },
         },
-      },
-    ],
+      ],
+    };
+
+    setForm({ ...form, screens: [...form.screens, newScreen] });
   };
 
-  setForm({ ...form, screens: [...form.screens, newScreen] });
-};
+  const handleDeleteScreen = (index) => {
+    const confirmDelete = window.confirm(
+      "Are you sure you want to delete this screen?"
+    );
+    if (!confirmDelete) return;
 
+    const updatedScreens = form.screens.filter((_, i) => i !== index);
+    setForm({ ...form, screens: updatedScreens });
 
-
-const handleDeleteScreen = (index) => {
-  const confirmDelete = window.confirm("Are you sure you want to delete this screen?");
-  if (!confirmDelete) return;
-
-  const updatedScreens = form.screens.filter((_, i) => i !== index);
-  setForm({ ...form, screens: updatedScreens });
-
-  setOpenScreens((prev) => {
-    const updated = { ...prev };
-    delete updated[index];
-    return updated;
-  });
-};
-
+    setOpenScreens((prev) => {
+      const updated = { ...prev };
+      delete updated[index];
+      return updated;
+    });
+  };
 
   const handleUpdateSubmit = async () => {
     try {
@@ -129,14 +140,13 @@ const handleDeleteScreen = (index) => {
     <Modal show={show} onHide={handleClose} size="lg" centered scrollable>
       <Modal.Header closeButton>
         <Modal.Title>
-          {isEditing ? "✏️ Edit Store " : `🏪 ${store.name}`}
+          {isEditing ? "✏ Edit Store" : `🏪 ${store.name}`}
         </Modal.Title>
       </Modal.Header>
 
       <Modal.Body>
         {isEditing ? (
           <Form>
-
             <Row>
               <Col md={6}>
                 <Form.Group className="mb-3">
@@ -149,6 +159,7 @@ const handleDeleteScreen = (index) => {
                   />
                 </Form.Group>
               </Col>
+
               <Col md={6}>
                 <Form.Group className="mb-3">
                   <Form.Label>Store Number</Form.Label>
@@ -160,6 +171,7 @@ const handleDeleteScreen = (index) => {
                   />
                 </Form.Group>
               </Col>
+
               <Col md={8}>
                 <Form.Group className="mb-3">
                   <Form.Label>Address</Form.Label>
@@ -171,6 +183,7 @@ const handleDeleteScreen = (index) => {
                   />
                 </Form.Group>
               </Col>
+
               <Col md={4}>
                 <Form.Group className="mb-3">
                   <Form.Label>Enable Cafe</Form.Label>
@@ -188,7 +201,10 @@ const handleDeleteScreen = (index) => {
             <hr />
 
             {form.screens.map((screen, sIdx) => (
-              <div key={sIdx} className="mb-3 border p-2 rounded bg-light-subtle">
+              <div
+                key={sIdx}
+                className="mb-3 border p-2 rounded bg-light-subtle"
+              >
                 <div className="d-flex justify-content-between align-items-center mb-2">
                   <h5 className="text-info mb-0">🎬 {screen.screenName}</h5>
                   <div>
@@ -208,7 +224,10 @@ const handleDeleteScreen = (index) => {
 
                 {openScreens[sIdx] &&
                   screen.games.map((game, gIdx) => (
-                    <div key={gIdx} className="border p-3 mb-2 rounded bg-white">
+                    <div
+                      key={gIdx}
+                      className="border p-3 mb-2 rounded bg-white"
+                    >
                       <Row>
                         <Col md={6}>
                           <Form.Group className="mb-2">
@@ -217,11 +236,17 @@ const handleDeleteScreen = (index) => {
                               type="text"
                               value={game.gameName}
                               onChange={(e) =>
-                                handleGameChange(sIdx, gIdx, "gameName", e.target.value)
+                                handleGameChange(
+                                  sIdx,
+                                  gIdx,
+                                  "gameName",
+                                  e.target.value
+                                )
                               }
                             />
                           </Form.Group>
                         </Col>
+
                         <Col md={6}>
                           <Form.Group className="mb-2">
                             <Form.Label>Allowed Players</Form.Label>
@@ -277,8 +302,7 @@ const handleDeleteScreen = (index) => {
 
             <div className="text-center">
               <Button variant="outline-primary" onClick={handleAddScreen}>
-                <BsPlusCircle className="me-2" />
-                Add Screen
+                <BsPlusCircle className="me-2" /> Add Screen
               </Button>
             </div>
           </Form>
@@ -290,6 +314,7 @@ const handleDeleteScreen = (index) => {
             <p>
               <strong>Address:</strong> {store.address}
             </p>
+
             {store.screens.map((screen, sIdx) => (
               <div key={sIdx} className="mb-3">
                 <div className="d-flex justify-content-between align-items-center">
@@ -298,6 +323,7 @@ const handleDeleteScreen = (index) => {
                     {openScreens[sIdx] ? <BsChevronUp /> : <BsChevronDown />}
                   </Button>
                 </div>
+
                 {openScreens[sIdx] &&
                   screen.games.map((game, gIdx) => (
                     <div key={gIdx} className="mt-2">
@@ -348,6 +374,7 @@ const handleDeleteScreen = (index) => {
         >
           <BsTrash className="me-2" /> Delete
         </Button>
+
         {isEditing ? (
           <Button variant="success" onClick={handleUpdateSubmit}>
             <BsSave className="me-2" /> Save
