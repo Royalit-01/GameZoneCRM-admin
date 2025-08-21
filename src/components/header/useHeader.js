@@ -46,10 +46,8 @@ const useHeader = () => {
   };
 
   const handleLogout = () => {
-    // Clear all storage data
-    localStorage.clear();
-    // Redirect to the root URL
-    window.location.href = "/";
+    // Clear any login/session data
+    localStorage.removeItem("isLoggedIn");
     localStorage.removeItem("profileImage");
 
     // Redirect to login or refresh page

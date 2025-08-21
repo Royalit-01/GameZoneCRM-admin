@@ -27,11 +27,7 @@ export default function App() {
   return localStorage.getItem("isLoggedIn") === "true";
 });
 
-const handleLogout = () => {
-  localStorage.removeItem("isLoggedIn");
-  setIsLoggedIn(false);
-  setActivePage("Dashboard");
-};
+
 
 
   useEffect(() => {
