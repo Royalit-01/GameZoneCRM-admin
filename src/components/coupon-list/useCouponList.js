@@ -11,7 +11,7 @@ const useCouponList = (showExpired = false) => {
     setLoading(true);
     try {
       const res = await fetch(
-        "https://gamezonecrm.onrender.com/api/admin/getAll-coupons"
+        `${import.meta.env.VITE_BACKEND_URL}/api/admin/getAll-coupons`
       );
       const data = await res.json();
       if (res.ok) {

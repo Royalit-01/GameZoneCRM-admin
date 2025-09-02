@@ -31,7 +31,7 @@ const useAdminCreateCoupon = () => {
 
   //get all game stores
   useEffect(() => {
-    fetch("https://gamezonecrm.onrender.com/api/admin/dashboard/getall-store")
+    fetch(`${import.meta.env.VITE_BACKEND_URL}/api/admin/dashboard/getall-store`)
       .then((res) => res.json())
       .then((data) => {
         setGameStores(data);
@@ -73,7 +73,7 @@ const useAdminCreateCoupon = () => {
       };
 
       const response = await fetch(
-        "https://gamezonecrm.onrender.com/api/admin/create-bulk-coupons",
+        `${import.meta.env.VITE_BACKEND_URL}/api/admin/create-bulk-coupons`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },

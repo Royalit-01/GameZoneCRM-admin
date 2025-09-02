@@ -6,7 +6,7 @@ const useEmployeeTable = () => {
   const [editingEmployee, setEditingEmployee] = useState(null);
   const [loading, setLoading] = useState(true);
   const soundRef = useRef(null);
-  const backendUrl = "https://gamezonecrm.onrender.com/api/admin";
+  const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
   const playSound = () => {
     if (soundRef.current) {
@@ -21,7 +21,7 @@ const useEmployeeTable = () => {
   };
 
   useEffect(() => {
-    fetch(`${backendUrl}/staff`)
+    fetch(`${backendUrl}/api/admin/staff`)
       .then((res) => res.json())
       .then((data) => setEmployees(data))
       .finally(setLoading(false))
@@ -31,7 +31,7 @@ const useEmployeeTable = () => {
   const handleDelete = async (id) => {
     toast.info("Deleting employee...");
     try {
-      const res = await fetch(`${backendUrl}/staff/${id}`, {
+      const res = await fetch(`${backendUrl}/api/admin/staff/${id}`, {
         method: "DELETE",
       });
       if (res.ok) {

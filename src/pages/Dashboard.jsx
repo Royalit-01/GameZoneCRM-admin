@@ -49,13 +49,13 @@ export default function Dashboard() {
         topCustRes,
         topGameRes,
       ] = await Promise.all([
-        fetch("https://gamezonecrm.onrender.com/api/admin/active"),
-        fetch("https://gamezonecrm.onrender.com/api/admin/staff"),
-        fetch("https://gamezonecrm.onrender.com/api/admin/dashboard/getall-store"),
-        fetch("https://gamezonecrm.onrender.com/api/admin/dashboard/getdata-by-week"),
-        fetch("https://gamezonecrm.onrender.com/api/admin/dashboard/getdata-by-month"),
-        fetch("https://gamezonecrm.onrender.com/api/admin/dashboard/get-top-customers"),
-        fetch("https://gamezonecrm.onrender.com/api/admin/dashboard/get-top-games"),
+        fetch(`${import.meta.env.VITE_BACKEND_URL}/api/admin/active`),
+        fetch(`${import.meta.env.VITE_BACKEND_URL}/api/admin/staff`),
+        fetch(`${import.meta.env.VITE_BACKEND_URL}/api/admin/dashboard/getall-store`),
+        fetch(`${import.meta.env.VITE_BACKEND_URL}/api/admin/dashboard/getdata-by-week`),
+        fetch(`${import.meta.env.VITE_BACKEND_URL}/api/admin/dashboard/getdata-by-month`),
+        fetch(`${import.meta.env.VITE_BACKEND_URL}/api/admin/dashboard/get-top-customers`),
+        fetch(`${import.meta.env.VITE_BACKEND_URL}/api/admin/dashboard/get-top-games`),
       ]);
 
       const customersData = await custRes.json();

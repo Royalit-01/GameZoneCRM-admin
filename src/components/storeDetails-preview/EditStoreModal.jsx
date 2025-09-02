@@ -125,7 +125,7 @@ const EditStoreModal = ({
   const handleUpdateSubmit = async () => {
     try {
       const res = await axios.put(
-        `https://gamezonecrm.onrender.com/api/admin/update-store/${store.number}`,
+        `${import.meta.env.VITE_BACKEND_URL}/api/admin/update-store/${store.number}`,
         form
       );
       handleUpdateStore(res.data);

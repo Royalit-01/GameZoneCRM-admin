@@ -33,7 +33,7 @@ const useDiscountManager = () => {
   useEffect(() => {
     const fetchStores = async () => {
       try {
-        const res = await fetch("https://gamezonecrm.onrender.com/api/admin/dashboard/getall-store");
+        const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/admin/dashboard/getall-store`);
         if (!res.ok) {
           throw new Error(`HTTP error! status: ${res.status}`);
         }
@@ -57,7 +57,7 @@ const useDiscountManager = () => {
 
   const fetchDiscounts = async () => {
     try {
-      const res = await fetch("https://gamezonecrm.onrender.com/api/admin/discounts");
+      const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/admin/discounts`);
       if (!res.ok) {
         throw new Error(`HTTP error! status: ${res.status}`);
       }
@@ -90,7 +90,7 @@ const useDiscountManager = () => {
 
     try {
       const res = await fetch(
-        "https://gamezonecrm.onrender.com/api/admin/discounts/add",
+        `${import.meta.env.VITE_BACKEND_URL}/api/admin/discounts/add`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -121,7 +121,7 @@ const useDiscountManager = () => {
   const handleDelete = async (id) => {
     try {
       await fetch(
-        `https://gamezonecrm.onrender.com/api/admin/discounts/${id}`,
+        `${import.meta.env.VITE_BACKEND_URL}/api/admin/discounts/${id}`,
         {
           method: "DELETE",
         }

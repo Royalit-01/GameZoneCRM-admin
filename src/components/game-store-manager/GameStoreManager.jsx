@@ -18,6 +18,7 @@ export default function GameStoreManager() {
     setEditIndex,
     preview,
     setPreview,
+
     loading,
     setLoading,
     handleStoreInfoChange,

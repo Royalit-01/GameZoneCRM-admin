@@ -75,8 +75,8 @@ const useEmployeeFormModal = (employee, show, onSave, onHide) => {
     setSubmitting(true);
     try {
       const url = employee
-        ? `https://gamezonecrm.onrender.com/api/admin/staff/${employee._id}`
-        : "https://gamezonecrm.onrender.com/api/admin/staff/add";
+        ? `${import.meta.env.VITE_BACKEND_URL}/api/admin/staff/${employee._id}`
+        : `${import.meta.env.VITE_BACKEND_URL}/api/admin/staff/add`;
 
       const method = employee ? "PUT" : "POST";
 
@@ -104,7 +104,7 @@ const useEmployeeFormModal = (employee, show, onSave, onHide) => {
 
   //get all game stores
   useEffect(() => {
-    fetch("https://gamezonecrm.onrender.com/api/admin/dashboard/getall-store")
+    fetch(`${import.meta.env.VITE_BACKEND_URL}/api/admin/dashboard/getall-store`)
       .then((res) => res.json())
       .then((data) => {
         setGameStores(data);

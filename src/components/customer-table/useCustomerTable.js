@@ -19,7 +19,7 @@ const useCustomerTable = () => {
       setLoading(true); // Start loading
       try {
         const res = await fetch(
-          `https://gamezonecrm.onrender.com/api/admin/active?date=${selectedDate}`
+          `${import.meta.env.VITE_BACKEND_URL}/api/admin/active?date=${selectedDate}`
         );
         const data = await res.json();
         setCustomers(data);
