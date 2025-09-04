@@ -93,6 +93,8 @@ function CustomerTable() {
                 <th>ID</th>
                 <th>Name</th>
                 <th>Phone</th>
+                <th>Online Amount</th>
+                <th>Cash Amount</th>
                 <th>Final Total Amount</th>
                 <th>Store</th>
                 <th>Status</th>
@@ -109,6 +111,8 @@ function CustomerTable() {
                   <td>{idx + 1}</td>
                   <td>{cust.name}</td>
                   <td>{cust.phone}</td>
+                  <td>₹{cust.onlineAmount || 0}</td>
+                  <td>₹{cust.cashAmount || 0}</td>
                   <td>₹{calculateFinalTotal(cust)}</td>
                   <td>{cust.store}</td>
                   <td>{cust.status}</td>
@@ -133,6 +137,8 @@ function CustomerTable() {
               <p className="mb-1"><strong>ID:</strong> {cust._id.slice(-6)}</p>
               <p className="mb-1"><strong>Name:</strong> {cust.name}</p>
               <p className="mb-1"><strong>Phone:</strong> {cust.phone}</p>
+              <p className="mb-1"><strong>Online:</strong> ₹{cust.onlineAmount || 0}</p>
+              <p className="mb-1"><strong>Cash:</strong> ₹{cust.cashAmount || 0}</p>
               <p className="mb-1"><strong>Total:</strong> ₹{calculateFinalTotal(cust)}</p>
               <p className="mb-1"><strong>Status:</strong> {cust.status}</p>
               <p className="mb-1"><strong>Created:</strong> {formatDateTime(cust.created_at)}</p>
